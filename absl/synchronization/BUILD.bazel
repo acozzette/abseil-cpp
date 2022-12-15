@@ -331,3 +331,9 @@ cc_test(
         "//absl/base:raw_logging_internal",
     ],
 )
+
+filegroup(
+    name = "srcs",
+    srcs = glob(["**"]),
+    visibility = ["//:__pkg__"],
+)

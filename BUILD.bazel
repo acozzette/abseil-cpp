@@ -23,3 +23,53 @@ exports_files([
     "AUTHORS",
     "LICENSE",
 ])
+
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
+
+cmake(
+    name = "cmake",
+    cache_entries = {
+        "ABSL_PROPAGATE_CXX_STD": "ON",
+    },
+    install = True,
+    lib_source = ":all_srcs",
+    # There is nothing special about this particular static library below, but
+    # we have to specify at least one. All of them will be available in the
+    # output tree artifact.
+    out_static_libs = ["libabsl_base.a"],
+)
+
+filegroup(
+    name = "all_srcs",
+    srcs = glob([
+        "*",
+        "CMake/*",
+    ]) + [
+        "//absl/algorithm:srcs",
+        "//absl/base:srcs",
+        "//absl/cleanup:srcs",
+        "//absl/container:srcs",
+        "//absl/crc:srcs",
+        "//absl/debugging:srcs",
+        "//absl/flags:srcs",
+        "//absl/functional:srcs",
+        "//absl/hash:srcs",
+        "//absl/log:srcs",
+        "//absl/log/internal:srcs",
+        "//absl/memory:srcs",
+        "//absl/meta:srcs",
+        "//absl/numeric:srcs",
+        "//absl/profiling:srcs",
+        "//absl/random/internal:srcs",
+        "//absl/random:srcs",
+        "//absl:srcs",
+        "//absl/status:srcs",
+        "//absl/strings:srcs",
+        "//absl/synchronization:srcs",
+        "//absl/time/internal/cctz:srcs",
+        "//absl/time:srcs",
+        "//absl/types:srcs",
+        "//absl/utility:srcs",
+    ],
+    visibility = ["//visibility:private"],
+)

@@ -1316,3 +1316,9 @@ cc_binary(
         "//absl/types:optional",
     ],
 )
+
+filegroup(
+    name = "srcs",
+    srcs = glob(["**"]),
+    visibility = ["//:__pkg__"],
+)
